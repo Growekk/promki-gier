@@ -96,9 +96,10 @@ export default function DealsView({ query, setQuery, filters, setFilters }) {
               ))}
             </Grid>
           ) : visible.length === 0 ? (
-            <EmptyState icon={SearchX} title="Brak ofert dla tych filtrów">
-              Poluzuj zakres ceny lub minimalny rabat. Jeśli gra nie jest teraz w promocji w żadnym sklepie, sprawdź
-              marketplace'y poniżej.
+            <EmptyState icon={SearchX} title={query ? `Brak „${query}” w oficjalnych sklepach PC` : 'Brak ofert dla tych filtrów'}>
+              {query
+                ? 'Sprawdź pisownię, odznacz platformę albo poluzuj cenę i rabat. Gry konsolowe i oferty z marketplace znajdziesz w linkach poniżej.'
+                : 'Poluzuj zakres ceny lub minimalny rabat.'}
             </EmptyState>
           ) : (
             <Grid>
