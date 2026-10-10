@@ -111,14 +111,19 @@ export const EXTERNAL_SITES = [
   { name: 'HRK Game', group: 'marketplace', platforms: ['steam'], region: 'Global', url: google('hrkgame.com') },
   { name: 'Allegro', group: 'marketplace', platforms: ALL, region: 'PL', url: (q) => `https://allegro.pl/listing?string=${enc(q + ' klucz')}` },
 
-  // Rynki kont
-  { name: 'G2G', group: 'account', platforms: ALL, region: 'Global', url: (q) => `https://www.g2g.com/search?query=${enc(q + ' account')}` },
-  { name: 'Z2U', group: 'account', platforms: ALL, region: 'Global', url: (q) => `https://www.z2u.com/search?keyword=${enc(q + ' account')}` },
-  { name: 'G2A — konta', group: 'account', platforms: ALL, region: 'PL', url: (q) => `https://www.g2a.com/search?query=${enc(q + ' account')}` },
-  { name: 'Eldorado.gg', group: 'account', platforms: ALL, region: 'Global', url: google('eldorado.gg', 'account') },
-  { name: 'PlayerAuctions', group: 'account', platforms: ALL, region: 'Global', url: google('playerauctions.com', 'account') },
-  { name: 'Allegro — konta', group: 'account', platforms: ALL, region: 'PL', url: (q) => `https://allegro.pl/listing?string=${enc(q + ' konto')}` },
+  // Rynki kont: konta z grą (np. „FC 27 – Steam – Account – Full Access”), bez przelewów monet / player trade.
+  // Gdy wybrano dokładnie jedną platformę, dopisujemy ją do zapytania (np. „… Steam Account”).
+  { name: 'G2A — konta', group: 'account', platforms: ALL, region: 'PL', url: (q) => `https://www.g2a.com/search?query=${enc(q)}&f%5Btype%5D%5B0%5D=9` },
+  { name: 'Kinguin — konta', group: 'account', platforms: ALL, region: 'EU', url: (q, p) => `https://www.kinguin.net/listing?phrase=${enc(withPlatform(q, p, 'Account'))}` },
+  { name: 'Z2U', group: 'account', platforms: ALL, region: 'Global', url: (q, p) => `https://www.z2u.com/search?keyword=${enc(withPlatform(q, p, 'Account'))}` },
+  { name: 'Allegro — konta', group: 'account', platforms: ALL, region: 'PL', url: (q, p) => `https://allegro.pl/listing?string=${enc(withPlatform(q, p, 'konto'))}` },
 ]
+
+const PLATFORM_WORD = { steam: 'Steam', epic: 'Epic', gog: 'GOG', playstation: 'PS5', xbox: 'Xbox', switch: 'Switch' }
+function withPlatform(q, platforms = [], suffix) {
+  const word = platforms.length === 1 ? PLATFORM_WORD[platforms[0]] : ''
+  return [q, word, suffix].filter(Boolean).join(' ')
+}
 
 export const GROUP_LABEL = {
   compare: 'Porównywarki',

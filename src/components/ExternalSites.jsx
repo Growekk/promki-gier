@@ -26,14 +26,14 @@ export default function ExternalSites({ query, filters }) {
           {group === 'account' && (
             <div className="mb-3 flex gap-2.5 rounded-xl border border-rose-400/30 bg-rose-400/10 p-3 text-sm text-rose-200">
               <TriangleAlert className="mt-0.5 size-4 shrink-0" aria-hidden />
-              <p>{TRUST.account.hint} Sprzedawca może też odzyskać konto po sprzedaży.</p>
+              <p>{TRUST.account.hint} Sprzedawca może też odzyskać konto po sprzedaży. Linki pokazują konta z grą, bez przelewów monet i „player trade”.</p>
             </div>
           )}
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
             {list.map((s) => (
               <a
                 key={s.name}
-                href={s.url(query)}
+                href={s.url(query, filters.platforms)}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 className="group flex items-center justify-between gap-2 rounded-xl border border-ink-600 bg-ink-850 px-3 py-2.5 text-sm transition-colors hover:border-violet-400/60 hover:bg-ink-800"

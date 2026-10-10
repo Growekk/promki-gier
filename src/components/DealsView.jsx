@@ -85,8 +85,11 @@ export default function DealsView({ query, setQuery, filters, setFilters }) {
               <Info className="mt-0.5 size-4 shrink-0" aria-hidden />
               <p>
                 {consoleOnly
-                  ? 'Sklepy konsolowe nie udostępniają publicznego API cen. Wpisz nazwę gry, a pokażemy linki do porównywarek i sklepów dla wybranej konsoli.'
-                  : 'Ceny na żywo mamy tylko dla oficjalnych sklepów. Marketplace i konta sprawdzisz w linkach poniżej. Wpisz nazwę gry.'}
+                  ? 'Sklepy konsolowe nie udostępniają publicznego API cen. '
+                  : 'Ceny na żywo mamy tylko dla oficjalnych sklepów. '}
+                {query
+                  ? 'Oferty dla tej gry sprawdzisz w linkach poniżej.'
+                  : 'Wpisz nazwę gry, a pokażemy linki do sklepów, marketplace’ów i rynków kont.'}
               </p>
             </div>
           ) : visible === null ? (
