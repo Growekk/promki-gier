@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* Kierunek: nocna witryna sklepu — grafitowe tło, etykiety cenowe w fiolecie,
+   zieleń = oszczędność, bursztyn = ostrzeżenie / czas. */
+@theme {
+  --font-display: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  --color-ink-950: #08080c;
+  --color-ink-900: #0e0e15;
+  --color-ink-850: #13131c;
+  --color-ink-800: #1a1a25;
+  --color-ink-700: #262634;
+  --color-ink-600: #36364a;
+  --color-mute: #8b8ba3;
+}
+
+@layer base {
+  html { color-scheme: dark; }
+  body {
+    @apply bg-ink-950 text-zinc-200 font-sans antialiased;
+    background-image:
+      radial-gradient(60rem 30rem at 85% -10%, rgb(139 92 246 / 0.10), transparent 60%),
+      radial-gradient(40rem 24rem at -10% 10%, rgb(52 211 153 / 0.05), transparent 60%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3 { text-wrap: balance; }
+  :focus-visible { outline: 2px solid var(--color-violet-400); outline-offset: 2px; border-radius: 6px; }
+  ::selection { background: rgb(139 92 246 / 0.4); }
+}
+
+@layer components {
+  .panel { @apply rounded-2xl border border-ink-700/70 bg-ink-900/80 backdrop-blur-sm; }
+  .label { @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-mute; }
+  .num { font-variant-numeric: tabular-nums; @apply font-mono; }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors
+      border-ink-600 bg-ink-850 text-zinc-300 hover:border-zinc-500 hover:text-white cursor-pointer select-none;
+  }
+  .chip[aria-pressed="true"] { @apply border-violet-400/70 bg-violet-500/15 text-violet-100; }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors cursor-pointer
+      disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  /* używać razem z .btn: class="btn btn-primary" */
+  .btn-primary { @apply bg-violet-500 text-white hover:bg-violet-400; }
+  .btn-ghost { @apply border border-ink-600 bg-ink-850 text-zinc-200 hover:border-zinc-500 hover:bg-ink-800; }
+  .icon-btn {
+    @apply inline-flex size-9 items-center justify-center rounded-lg border border-ink-600 bg-ink-850/90 text-zinc-300
+      transition-colors hover:border-zinc-500 hover:text-white cursor-pointer;
+  }
+  .skeleton { @apply animate-pulse rounded-lg bg-ink-800; }
+
+  /* Podwójny suwak: dwa range'e nałożone na siebie, klikalne tylko kciuki */
+  .dual-range input[type="range"] { pointer-events: none; }
+  .dual-range input[type="range"]::-webkit-slider-thumb { pointer-events: auto; }
+  .dual-range input[type="range"]::-moz-range-thumb { pointer-events: auto; }
+  .range {
+    @apply absolute inset-x-0 top-1/2 h-1.5 w-full -translate-y-1/2 appearance-none bg-transparent;
+  }
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 9999px;
+    background: var(--color-violet-400); border: 3px solid var(--color-ink-950); cursor: grab;
+    box-shadow: 0 0 0 1px var(--color-violet-400);
+  }
+  .range::-moz-range-thumb {
+    width: 14px; height: 14px; border-radius: 9999px; background: var(--color-violet-400);
+    border: 3px solid var(--color-ink-950); cursor: grab;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
