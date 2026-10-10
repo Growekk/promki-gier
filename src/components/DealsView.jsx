@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { ArrowRight, Gift, SlidersHorizontal, SearchX, Info } from 'lucide-react'
 import { getDeals, getGiveaways, steamHeader } from '../lib/api'
 import { PC_PLATFORMS, storeIDsFor } from '../lib/catalog'
-import { go, useApp, useCurrency } from '../lib/hooks'
+import { go, plural, useApp, useCurrency } from '../lib/hooks'
 import SearchBox from './SearchBox'
 import { FilterChips, FilterPanel, PRICE_MAX } from './Filters'
 import DealCard, { DealCardSkeleton } from './DealCard'
@@ -74,7 +74,7 @@ export default function DealsView({ query, setQuery, filters, setFilters }) {
           <SectionTitle
             eyebrow={query ? 'Wyniki wyszukiwania' : 'Prawdziwe ceny z oficjalnych sklepów'}
             right={
-              visible && liveAvailable && <span className="num text-sm text-mute">{visible.length} ofert</span>
+              visible && liveAvailable && <span className="num text-sm text-mute">{plural(visible.length, 'oferta', 'oferty', 'ofert')}</span>
             }
           >
             {query ? <>„{query}”</> : 'Najlepsze okazje teraz'}

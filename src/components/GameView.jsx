@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, Bell, Heart, ShoppingCart, Trophy, PiggyBank, CalendarDays, SearchX, ExternalLink } from 'lucide-react'
 import { dealLink, getDealInfo, getGame, steamHeader, storeIcon } from '../lib/api'
 import { storeTrust } from '../lib/catalog'
-import { bestDeal, useApp, useCurrency } from '../lib/hooks'
+import { bestDeal, plural, useApp, useCurrency } from '../lib/hooks'
 import ExternalSites from './ExternalSites'
 import { Badge, DiscountTag, EmptyState, GameImage, SectionTitle, TrustBadge } from './ui'
 
@@ -122,7 +122,7 @@ export default function GameView({ id, filters }) {
 
       {/* tabela porównania */}
       <section className="space-y-4">
-        <SectionTitle eyebrow="Ceny na żywo, od najniższej" right={<span className="num text-sm text-mute">{offers.length} sklepów</span>}>
+        <SectionTitle eyebrow="Ceny na żywo, od najniższej" right={<span className="num text-sm text-mute">{plural(offers.length, 'sklep', 'sklepy', 'sklepów')}</span>}>
           Porównanie ofert
         </SectionTitle>
         {offers.length === 0 ? (

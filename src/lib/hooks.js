@@ -113,3 +113,10 @@ export function timeLeft(dateStr) {
   const d = Math.floor(h / 24)
   return d === 1 ? '1 dzień' : `${d} dni`
 }
+
+/** Polska odmiana: plural(5, 'oferta', 'oferty', 'ofert') → '5 ofert' */
+export function plural(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100
+  const word = n === 1 ? one : m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? few : many
+  return `${n} ${word}`
+}
