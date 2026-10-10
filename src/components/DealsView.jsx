@@ -33,7 +33,7 @@ export default function DealsView({ query, setQuery, filters, setFilters }) {
       upperPrice: filters.price[1] >= PRICE_MAX ? undefined : filters.price[1],
       sortBy: filters.sortBy,
       AAA: filters.aaa,
-      onSale: query ? undefined : 1,
+      onSale: !query, // przy wyszukiwaniu pokazuj też gry bez promocji (pełna cena)
     }).then((d) => alive && setDeals(d))
     return () => {
       alive = false

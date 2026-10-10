@@ -102,7 +102,7 @@ export function getStores() {
  * Lista okazji. Ceny w USD.
  * sortBy: 'Deal Rating' | 'Savings' | 'Price' | 'Metacritic' | 'Reviews' | 'Release' | 'Recent'
  */
-export function getDeals({ title, storeIDs, lowerPrice, upperPrice, sortBy = 'Deal Rating', pageSize = 60, onSale = 1, AAA }) {
+export function getDeals({ title, storeIDs, lowerPrice, upperPrice, sortBy = 'Deal Rating', pageSize = 60, onSale = true, AAA }) {
   const params = {
     title,
     storeID: storeIDs?.length ? storeIDs.join(',') : undefined,
@@ -111,7 +111,7 @@ export function getDeals({ title, storeIDs, lowerPrice, upperPrice, sortBy = 'De
     sortBy,
     desc: sortBy === 'Price' ? 0 : undefined,
     pageSize,
-    onSale,
+    onSale: onSale ? 1 : undefined,
     AAA: AAA ? 1 : undefined,
   }
   return withFallback(
