@@ -81,16 +81,24 @@ export default function DealsView({ query, setQuery, filters, setFilters }) {
           </SectionTitle>
 
           {!liveAvailable ? (
-            <div className="flex gap-3 rounded-2xl border border-violet-400/30 bg-violet-500/10 p-4 text-sm text-violet-100">
-              <Info className="mt-0.5 size-4 shrink-0" aria-hidden />
-              <p>
+            <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-violet-400/30 bg-violet-500/10 p-4 text-sm text-violet-100">
+              <Info className="size-4 shrink-0" aria-hidden />
+              <p className="min-w-0 flex-1">
                 {consoleOnly
                   ? 'Sklepy konsolowe nie udostępniają publicznego API cen. '
-                  : 'Ceny na żywo mamy tylko dla oficjalnych sklepów. '}
+                  : 'Ceny na żywo pokazujemy tylko dla oficjalnych sklepów, a ten typ masz teraz wyłączony. Marketplace’y i rynki kont nie mają publicznego API, dlatego dostają same linki. '}
                 {query
                   ? 'Oferty dla tej gry sprawdzisz w linkach poniżej.'
                   : 'Wpisz nazwę gry, a pokażemy linki do sklepów, marketplace’ów i rynków kont.'}
               </p>
+              {officialOff && !consoleOnly && (
+                <button
+                  onClick={() => setFilters((f) => ({ ...f, types: [...f.types, 'official'] }))}
+                  className="btn btn-primary py-2"
+                >
+                  Pokaż ceny w oficjalnych sklepach
+                </button>
+              )}
             </div>
           ) : visible === null ? (
             <Grid>
